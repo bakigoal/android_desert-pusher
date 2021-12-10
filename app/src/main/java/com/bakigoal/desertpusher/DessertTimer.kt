@@ -2,13 +2,12 @@ package com.bakigoal.desertpusher
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import timber.log.Timber
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver, LifecycleEventObserver {
+class DessertTimer(lifecycle: Lifecycle) : LifecycleEventObserver {
 
     private var secondsCount = 0
     private var executor = scheduledExecutor()
