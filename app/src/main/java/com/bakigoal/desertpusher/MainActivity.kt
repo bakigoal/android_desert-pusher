@@ -2,7 +2,6 @@ package com.bakigoal.desertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -12,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.bakigoal.desertpusher.Dessert.Companion.getAllDesserts
 import com.bakigoal.desertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -116,6 +116,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     }
 
     private fun log(msg: String) {
-        Log.i("javaClass.simpleName", msg)
+        Timber.i(msg)
     }
 }
