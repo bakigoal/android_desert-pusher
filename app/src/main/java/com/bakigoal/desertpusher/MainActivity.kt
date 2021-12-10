@@ -12,6 +12,9 @@ import com.bakigoal.desertpusher.Dessert.Companion.getAllDesserts
 import com.bakigoal.desertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERTS_SOLD = "key_desserts_sold"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -33,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setOnClickListener { onDessertClicked() }
 
         dessertTimer = DessertTimer(lifecycle)
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS_SOLD)
+        }
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -74,6 +82,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERTS_SOLD, dessertsSold)
         log("onSaveInstanceState")
     }
 
