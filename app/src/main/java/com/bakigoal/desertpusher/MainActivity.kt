@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
     private var dessertsSold = 0
-
-    // Create a list of all desserts, in order of when they start being produced
     private val allDesserts = getAllDesserts()
     private var currentDessert = allDesserts[0]
+
+    // --------------- LIFECYCLE CALLBACKS START ---------------------------------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.dessertButton.setOnClickListener {
-            onDessertClicked()
-        }
+        binding.dessertButton.setOnClickListener { onDessertClicked() }
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -73,9 +71,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         log("onDestroy")
     }
 
-    /**
-     * Updates the score when the dessert is clicked. Possibly shows a new dessert.
-     */
+    private fun log(methodName: String) = Timber.i("$methodName called")
+
+    // --------------- LIFECYCLE CALLBACKS END -----------------------------------------------------
+
     private fun onDessertClicked() {
 
         // Update the score
@@ -89,9 +88,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         showCurrentDessert()
     }
 
-    /**
-     * Determine which dessert to show.
-     */
     private fun showCurrentDessert() {
         var newDessert = allDesserts[0]
         for (dessert in allDesserts) {
@@ -117,14 +113,14 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
      */
     private fun onShare() {
         val shareIntent = ShareCompat.IntentBuilder(this)
-                .setText(getString(R.string.share_text, dessertsSold, revenue))
-                .setType("text/plain")
-                .intent
+            .setText(getString(R.string.share_text, dessertsSold, revenue))
+            .setType("text/plain")
+            .intent
         try {
             startActivity(shareIntent)
         } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(this, getString(R.string.sharing_not_available),
-                    Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.sharing_not_available), Toast.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -138,9 +134,5 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun log(methodName: String) {
-        Timber.i("$methodName called")
     }
 }
