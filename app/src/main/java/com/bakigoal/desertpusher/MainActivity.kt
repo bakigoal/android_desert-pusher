@@ -71,6 +71,16 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         log("onDestroy")
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        log("onSaveInstanceState")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        log("onRestoreInstanceState")
+    }
+
     private fun log(methodName: String) = Timber.i("$methodName called")
 
     // --------------- LIFECYCLE CALLBACKS END -----------------------------------------------------
