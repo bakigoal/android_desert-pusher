@@ -1,13 +1,13 @@
 package com.bakigoal.desertpusher
 
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import timber.log.Timber
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class DessertTimer(lifecycle: Lifecycle) : LifecycleEventObserver {
+class DessertTimer(lifecycle: Lifecycle) : DefaultLifecycleObserver {
 
     private var secondsCount = 0
     private var executor = scheduledExecutor()
@@ -16,12 +16,12 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleEventObserver {
         lifecycle.addObserver(this)
     }
 
-    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        when (event) {
-            Lifecycle.Event.ON_START -> startTimer()
-            Lifecycle.Event.ON_STOP -> stopTimer()
-            else -> {}
-        }
+    override fun onStart(owner: LifecycleOwner) {
+        startTimer()
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        stopTimer()
     }
 
     private fun startTimer() {
